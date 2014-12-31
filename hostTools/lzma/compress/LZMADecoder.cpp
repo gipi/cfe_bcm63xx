@@ -221,14 +221,17 @@ HRESULT CDecoder::CodeReal(ISequentialInStream *anInStream,
           aRepDistances[0] = aDistance;
           // UpdateStat(aLen, aPosSlot);
         }
-        if (aDistance >= aNowPos64)
+        if (aDistance >= aNowPos64) {
+          goto flush;
           throw E_INVALIDDATA;
+        }
         m_OutWindowStream.CopyBackBlock(aDistance, aLen);
         aNowPos64 += aLen;
         aPreviousByte = m_OutWindowStream.GetOneByte(0 - 1);
       }
     }
   }
+flush:
   return Flush();
 }
 
