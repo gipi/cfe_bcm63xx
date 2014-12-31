@@ -1,3 +1,21 @@
+/**
+ *
+ */
+/***************************************************************************
+ * File Name  : decmplzma.cpp
+ *
+ * Description: This program decompress the lzma section in a bootloader rom
+ *              Seems that Broadcom uses a custom LZMA format to compress the
+ *              second stage of CFE, this program decompresses that.
+ *
+ *              In order to compile this program launch (from the root of the
+ *              project)
+ *
+ *                make -C hostTools decmplzma EXTRA=-D__DECMPLZMA__
+ *
+ * Updates    : 31/12/2014  gipi.  Created.
+ *
+ ***************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
