@@ -26,6 +26,12 @@ LZMAOBJS = \
         LZMAEncoder.o \
         OutByte.o \
         WindowIn.o
+ifneq ("$(EXTRA)","")
+LZMAOBJS += \
+	LZMADecoder.o \
+	WindowOut.o   \
+	InByte.o
+endif
 
 CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 	else if [ -x /bin/bash ]; then echo /bin/bash; \
@@ -43,7 +49,7 @@ export SSHD_DIR HOST_GENKEY CC STRIP
 #WARNINGS= -Wall
 
 #export DEFS		= -DDEBUG
-export CFLAGS		= -m32 $(DEFS) $(WARNINGS) -O2 -DGNU $(INCLUDEDIR)
+export CFLAGS		= -m32 $(DEFS) $(WARNINGS) -O2 -DGNU $(INCLUDEDIR) $(EXTRA)
 
 vpath %.cpp $(LZMADIR)
 
@@ -94,6 +100,10 @@ cmplzma: cmplzma.cpp $(LZMAOBJS)
 	g++ $(CFLAGS) -c cmplzma.cpp
 	g++ -m32 -o cmplzma cmplzma.o $(LZMAOBJS) -lm
 
+decmplzma: decmplzma.cpp $(LZMAOBJS)
+	g++ $(CFLAGS) -c decmplzma.cpp
+	g++ -m32 -o decmplzma decmplzma.o $(LZMAOBJS) -lm
+
 
 ifeq ($(strip $(BUILD_CFM_SSHD)),y)
 ifeq ($(strip $(BUILD_SSHD_MIPS_GENKEY)),y)
@@ -134,6 +144,6 @@ $(LZMAOBJS): %.o: %.cpp
 	g++ -c $(CFLAGS) $^ -o $@
 
 clean:
-	rm -f bcmImageBuilder addvtoken createimg mksquashfs mkcramfs cmplzma $(HOST_GENKEY)
+	rm -f bcmImageBuilder addvtoken createimg mksquashfs mkcramfs cmplzma decmplzma $(HOST_GENKEY)
 	rm -fr *.o core
 	rm -fr $(LZMADIR)/*.o $(GENKEY_DIR)/*.o

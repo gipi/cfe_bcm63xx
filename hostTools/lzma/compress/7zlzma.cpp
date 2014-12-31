@@ -47,7 +47,7 @@ bool compress_lzma_7z(const unsigned char* in_data,
 		return false;
 	}
 }
-#if 0
+#ifdef __DECMPLZMA__
 bool decompress_lzma_7z(const unsigned char* in_data, 
                         unsigned in_size, 
                         unsigned char* out_data, 
