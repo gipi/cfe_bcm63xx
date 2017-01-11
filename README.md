@@ -2,7 +2,7 @@ BCM63xx CFE Bootloader
 ======================
 This is the buildsystem for the CFE BCM63XX bootloader.
 
-You need to have installed gcc, make, libstdc++5, unzip, libz-dev and libc headers.
+You need to have installed gcc, (gcc-4.8-multilib, g++-4.8-multilib for Ubuntu 14.04), make, libstdc++5, unzip, libz-dev and libc headers.
 
 Building
 --------
